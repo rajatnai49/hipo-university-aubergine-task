@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 const Card = ({ cardDetails }: any) => {
     const handleImageDownload = () => {
@@ -18,14 +17,18 @@ const Card = ({ cardDetails }: any) => {
     }
 
     return (
-        <div className="flex flex-col p-20 h-auto bg-lime-50 rounded-lg items-center text-center gap-5" id={cardDetails.alpha_two_code + cardDetails.country + cardDetails.name}>
-            {cardDetails.name}
-            {
-                cardDetails.web_pages.map((item: any) => (
-                    <Link href={item} key={item} target="_blank" className="text-blue-700"> {item} </Link>
-                ))
-            }
-            <button onClick={handleImageDownload} > Download </button>
+        <div className="flex flex-col pt-20 h-auto bg-lime-50 rounded-lg items-center text-center gap-5" >
+            <div className="pt-20 px-8 h-auto bg-lime-50 rounded-lg items-center text-center flex flex-col" id={cardDetails.alpha_two_code + cardDetails.country + cardDetails.name}>
+                <div className="text-3xl font-semibold">{cardDetails.name}</div>
+                <div className="my-10">
+                    {
+                        cardDetails.web_pages.map((item: any) => (
+                            <Link href={item} key={item} target="_blank" className="text-blue-700"> {item} </Link>
+                        ))
+                    }
+                </div>
+            </div>
+            <button onClick={handleImageDownload} className="w-full bg-lime-200 p-6 mt-auto text-lg rounded-t-lg shadow-black"> Download </button>
         </div>
     )
 }

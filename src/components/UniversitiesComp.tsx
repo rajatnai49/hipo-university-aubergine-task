@@ -14,6 +14,7 @@ const UniversitiesComp = () => {
 
     const getData = async () => {
         const data = await getUniversitiesData(searchCountryName)
+        console.log(data)
         const statesValues = data.map((item: any) => {
             if (item != null) {
                 return item['state-province']
@@ -23,6 +24,7 @@ const UniversitiesComp = () => {
             return el != null;
         });
         setStateValues(filtered)
+        setState('')
         setUniversitiesData(data)
     }
 
