@@ -17,18 +17,18 @@ const Card = ({ cardDetails }: any) => {
     }
 
     return (
-        <div className="flex flex-col pt-20 h-auto bg-lime-50 rounded-lg items-center text-center gap-5" >
-            <div className="pt-20 px-8 h-auto bg-lime-50 rounded-lg items-center text-center flex flex-col" id={cardDetails.alpha_two_code + cardDetails.country + cardDetails.name}>
+        <div className="flex flex-col pt-20 h-auto bg-blue-50 rounded-lg items-center text-center gap-5 border border-black" >
+            <div className="pt-20 px-8 h-auto bg-blue-50 rounded-lg items-center text-center flex flex-col" id={cardDetails.alpha_two_code + cardDetails.country + cardDetails.name}>
                 <div className="text-3xl font-semibold">{cardDetails.name}</div>
                 <div className="my-10">
                     {
                         cardDetails.web_pages.map((item: any) => (
-                            <Link href={item} key={item} target="_blank" className="text-blue-700"> {item} </Link>
+                            <Link href={item} key={item} target="_blank" className="text-blue-800 text-lg"> {item} </Link>
                         ))
                     }
                 </div>
             </div>
-            <button onClick={handleImageDownload} className="w-full bg-lime-200 p-6 mt-auto text-lg rounded-t-lg shadow-black"> Download </button>
+            <button onClick={handleImageDownload} className="w-full bg-white p-6 mt-auto text-lg shadow-black border-t border-black"> Download </button>
         </div>
     )
 }

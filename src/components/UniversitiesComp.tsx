@@ -11,8 +11,10 @@ const UniversitiesComp = () => {
     const [universitiesDataOnState, setUniversitiesDataOnState] = useState<any[]>([])
     const [stateValues, setStateValues] = useState<any[]>([])
     const [selectedState, setState] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const getData = async () => {
+        setIsLoading(true)
         const data = await getUniversitiesData(searchCountryName)
         console.log(data)
         const statesValues = data.map((item: any) => {
@@ -26,6 +28,7 @@ const UniversitiesComp = () => {
         setStateValues(filtered)
         setState('')
         setUniversitiesData(data)
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -47,11 +50,12 @@ const UniversitiesComp = () => {
     return (
         <div className="w-screen px-8 lg:px-24">
             <div className="flex flex-row justify-between items-center gap-2">
-                <input className="p-4 rounded-lg" onChange={e => setSearchCountryName(e.target.value)} onKeyDown={(e) => {
+                <input placeholder="Enter Country & press Enter" className="p-4 rounded-lg" onChange={e => setSearchCountryName(e.target.value)} onKeyDown={(e) => {
                     if (e.code == "Enter") {
                         getData()
                     }
                 }} />
+                <button className="mx-5 bg-orange-500 text-white rounded-lg h-10 p-5 flex flex-row items-center justify-center" onClick={getData}>Search</button>
                 <label htmlFor="states" className="ml-auto">Choose a State-Provision:</label>
                 <select id="states" name="states" className="p-4 rounded-lg" onChange={handleStateChange} >
                     <option value={""}>Select State-Provision</option>
@@ -63,18 +67,24 @@ const UniversitiesComp = () => {
                 </select>
             </div>
 
-            <div className="grid grid-cols-4 gap-10 my-20">
-                {
-                    selectedState ?
-                        universitiesDataOnState.map((item, index) => (
-                            <Card key={index} cardDetails={item} />
-                        ))
-                        :
-                        universitiesData.map((item, index) => (
-                            <Card key={index} cardDetails={item} />
-                        ))
-                }
-            </div>
+            {
+                isLoading ?
+                    <div className="flex flex-row items-center justify-center my-40">Loading Please Wait...</div>
+                    :
+
+                    <div className="grid grid-cols-4 gap-10 my-20">
+                        {
+                            selectedState ?
+                                universitiesDataOnState.map((item, index) => (
+                                    <Card key={index} cardDetails={item} />
+                                ))
+                                :
+                                universitiesData.map((item, index) => (
+                                    <Card key={index} cardDetails={item} />
+                                ))
+                        }
+                    </div>
+            }
         </div>
     )
 }
