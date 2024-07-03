@@ -8,7 +8,9 @@ const UniversitiesComp = () => {
 
     const [searchCountryName, setSearchCountryName] = useState<string>('')
     const [universitiesData, setUniversitiesData] = useState<any[]>([])
+    const [universitiesDataOnState, setUniversitiesDataOnState] = useState<any[]>([])
     const [stateValues, setStateValues] = useState<any[]>([])
+    const [selectedState, setState] = useState<string>('')
 
     const getData = async () => {
         const data = await getUniversitiesData(searchCountryName)
@@ -17,9 +19,28 @@ const UniversitiesComp = () => {
                 return item['state-province']
             }
         })
-        console.log(statesValues)
+        const filtered = statesValues.filter(function(el: any) {
+            return el != null;
+        });
+        setStateValues(filtered)
         setUniversitiesData(data)
     }
+
+    useEffect(() => {
+        const filterData = async () => {
+            const filterUnis = universitiesData.filter(function(item: any) {
+                if (item['state-province'] === selectedState) {
+                    return item;
+                }
+            })
+            setUniversitiesDataOnState(filterUnis)
+        }
+        filterData()
+    }, [selectedState])
+
+    const handleStateChange = (event: any) => {
+        setState(event.target.value);
+    };
 
     return (
         <div className="w-screen px-8 lg:px-24">
@@ -30,11 +51,11 @@ const UniversitiesComp = () => {
                     }
                 }} />
                 <label htmlFor="states" className="ml-auto">Choose a State-Provision:</label>
-                <select id="states" name="states" className="p-4 rounded-lg">
+                <select id="states" name="states" className="p-4 rounded-lg" onChange={handleStateChange} >
                     <option value={""}>Select State-Provision</option>
                     {
                         stateValues.map((item, index) => (
-                            <option value={item}>item</option>
+                            <option value={item}>{item}</option>
                         ))
                     }
                 </select>
@@ -42,9 +63,14 @@ const UniversitiesComp = () => {
 
             <div className="grid grid-cols-4 gap-10 my-20">
                 {
-                    universitiesData.map((item, index) => (
-                        <Card key={index} cardDetails={item} />
-                    ))
+                    selectedState ?
+                        universitiesDataOnState.map((item, index) => (
+                            <Card key={index} cardDetails={item} />
+                        ))
+                        :
+                        universitiesData.map((item, index) => (
+                            <Card key={index} cardDetails={item} />
+                        ))
                 }
             </div>
         </div>
