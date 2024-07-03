@@ -58,7 +58,7 @@ const UniversitiesComp = () => {
                             getData()
                         }
                     }} />
-                    <button className="mx-5 bg-orange-500 text-white rounded-lg h-10 p-5 flex flex-row items-center justify-center" onClick={getData}>Search</button>
+                    <button className="mx-5 bg-black text-white rounded-lg h-10 p-5 flex flex-row items-center justify-center" onClick={getData}>Search</button>
                 </div>
 
                 <select id="states" name="states" className="p-4 rounded-lg w-auto my-5 md:my-0" onChange={handleStateChange} >

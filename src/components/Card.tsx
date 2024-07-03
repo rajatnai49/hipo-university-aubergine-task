@@ -22,8 +22,8 @@ const Card = ({ cardDetails }: any) => {
     }
 
     return (
-        <div className="flex flex-col pt-20 h-auto bg-blue-50 rounded-lg items-center text-center gap-5 border border-black" >
-            <div className="pt-20 px-8 h-auto bg-blue-50 rounded-lg items-center text-center flex flex-col" id={cardDetails.alpha_two_code + cardDetails.country + cardDetails.name}>
+        <div className="flex flex-col pt-20 h-auto bg-white rounded-lg items-center text-center gap-5 border border-black" >
+            <div className="pt-20 px-8 h-auto bg-white rounded-lg items-center text-center flex flex-col" id={cardDetails.alpha_two_code + cardDetails.country + cardDetails.name}>
                 <div className="text-3xl font-semibold">{cardDetails.name}</div>
                 <div className="my-10">
                     {
@@ -33,7 +33,7 @@ const Card = ({ cardDetails }: any) => {
                     }
                 </div>
             </div>
-            <button onClick={handleImageDownload} className="w-full bg-white p-6 mt-auto text-lg shadow-black border-t border-black"> Download </button>
+            <button onClick={handleImageDownload} className="bg-black text-white m-5 py-4 px-8 mt-auto text-lg shadow-black border-t border-black rounded-xl"> Download </button>
         </div>
     )
 }
