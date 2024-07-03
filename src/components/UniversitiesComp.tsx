@@ -3,6 +3,7 @@
 import { getUniversitiesData } from "@/utils/getBackendData";
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import { toast } from 'react-hot-toast';
 
 const UniversitiesComp = () => {
 
@@ -28,6 +29,7 @@ const UniversitiesComp = () => {
         setStateValues(filtered)
         setState('')
         setUniversitiesData(data)
+        toast.success('Universities fetched successfully!');
         setIsLoading(false)
     }
 
@@ -49,19 +51,21 @@ const UniversitiesComp = () => {
 
     return (
         <div className="w-screen px-8 lg:px-24">
-            <div className="flex flex-row justify-between items-center gap-2">
-                <input placeholder="Enter Country & press Enter" className="p-4 rounded-lg" onChange={e => setSearchCountryName(e.target.value)} onKeyDown={(e) => {
-                    if (e.code == "Enter") {
-                        getData()
-                    }
-                }} />
-                <button className="mx-5 bg-orange-500 text-white rounded-lg h-10 p-5 flex flex-row items-center justify-center" onClick={getData}>Search</button>
-                <label htmlFor="states" className="ml-auto">Choose a State-Provision:</label>
-                <select id="states" name="states" className="p-4 rounded-lg" onChange={handleStateChange} >
+            <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-2">
+                <div className="flex flex-row items-center justify-center">
+                    <input placeholder="Enter Country & press Enter" className="p-4 rounded-lg" onChange={e => setSearchCountryName(e.target.value)} onKeyDown={(e) => {
+                        if (e.code == "Enter") {
+                            getData()
+                        }
+                    }} />
+                    <button className="mx-5 bg-orange-500 text-white rounded-lg h-10 p-5 flex flex-row items-center justify-center" onClick={getData}>Search</button>
+                </div>
+
+                <select id="states" name="states" className="p-4 rounded-lg w-auto my-5 md:my-0" onChange={handleStateChange} >
                     <option value={""}>Select State-Provision</option>
                     {
                         stateValues.map((item, index) => (
-                            <option value={item}>{item}</option>
+                            <option value={item} key={item + index}>{item}</option>
                         ))
                     }
                 </select>
@@ -72,7 +76,7 @@ const UniversitiesComp = () => {
                     <div className="flex flex-row items-center justify-center my-40">Loading Please Wait...</div>
                     :
 
-                    <div className="grid grid-cols-4 gap-10 my-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 my-20">
                         {
                             selectedState ?
                                 universitiesDataOnState.map((item, index) => (

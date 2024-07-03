@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import * as htmlToImage from 'html-to-image';
+import toast from "react-hot-toast";
 
 const Card = ({ cardDetails }: any) => {
     const handleImageDownload = () => {
@@ -13,6 +14,10 @@ const Card = ({ cardDetails }: any) => {
                     link.href = dataUrl;
                     link.click();
                 });
+            toast.success("University Card downloaded :)")
+        }
+        else {
+            toast.error("There is some error :(")
         }
     }
 
